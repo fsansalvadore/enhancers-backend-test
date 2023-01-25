@@ -29,9 +29,9 @@ router.get('/', async (req, res) => {
 
   // Send some kind of message if something doesn't work
   if (!citiesRes)
-    res.status(500).send({ message: "Couln't find weather for cities" });
+    res.status(500).send({ message: "Couldn't find weather for cities" });
   if (!citiesWithBusinesses)
-    res.status(500).send({ message: "Couln't find businesses for cities" });
+    res.status(500).send({ message: "Couldn't find businesses for cities" });
 
   // Respond with composed object
   res.status(200).send({
