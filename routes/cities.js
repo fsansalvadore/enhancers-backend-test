@@ -15,7 +15,7 @@ router.get("/", async (req, res) => {
 
 // fetch city weather
 const fetchCityWeatherData = async (lat, lon) => {
-  const res = await axios.get(`https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&units=metric&appid=${OPENWEATHER_API}`)
+  const res = await axios.get(`https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&units=metric&appid=${process.env.OPENWEATHER_API}`)
     .catch((err) => console.error(err));
 
   return res.data;
@@ -27,7 +27,7 @@ const fetchCityBusinesses = async (city) => {
     method: 'get',
     url: `https://api.yelp.com/v3/businesses/search?latitude=${city.lat}&longitude=${city.lon}&sort_by=best_match&limit=10`,
     headers: {
-      "Authorization": `Bearer ulNGm33_6FB54gEM4BHegXPbNEtJxaCLMp7IcbdddoE3xJCnNvC8IzG9psp2Qls4Dh0i9DcWmlBlGy43xOHiOJWSH8COifthklDOq9gA1-KLe0tkh6-kJ2hq6VvOY3Yx`,
+      "Authorization": `Bearer ${process.env.YELP_FUSION_API}`,
       "accept": 'application/json'
     }
   };
