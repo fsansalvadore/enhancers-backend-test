@@ -2,11 +2,11 @@ require('dotenv').config();
 const helmet = require('helmet');
 const express = require('express');
 const app = express();
-const port = 3000;
+const PORT = process.env.PORT || 3000;
 const citiesRoutes = require('./routes/cities');
 
 app.use(helmet());
 app.use(express.json());
 app.use('/cities', citiesRoutes);
 
-app.listen(port, () => console.log('Server started'));
+app.listen(PORT, () => console.log('Server started'));
