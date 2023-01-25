@@ -6,7 +6,7 @@
   "scripts": {
     "startDev": "nodemon src/app.js"
   },
-  "author": "",
+  "author": "fsansalvadore",
   "license": "ISC",
   "prettier": {
     "trailingComma": "es5",
@@ -22,5 +22,8 @@
   },
   "devDependencies": {
     "nodemon": "^2.0.20"
+  },
+  "engines": {
+    "node": "14.x"
   }
 }

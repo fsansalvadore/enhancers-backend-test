@@ -1,6 +1,0 @@
-{
-  "version": 2,
-  "name": "enhancers-backend-test",
-  "builds": [{ "src": "src/app.js", "use": "@vercel/node" }],
-  "routes": [{ "src": "/(.*)", "dest": "/src/app.js" }]
-}
