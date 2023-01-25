@@ -1,17 +1,4 @@
-const express = require('express');
-const router = express.Router();
 const axios = require('axios');
-const cities = require('../utils/cities');
-const OPENWEATHER_API = "1b15cf4482656544175a3c11404fd92e"
-
-// GET /cities
-// list of available cities
-router.get("/", async (req, res) => {
-  const citiesRes = await Promise.all([...cities.map((city) => fetchCityWeatherData(city.lat, city.lon))])
-  const citiesWithBusinesses = await Promise.all(citiesRes.map(city => fetchCityBusinesses(city)))
-  const compositeCities = getCompositeCities(citiesRes, citiesWithBusinesses)
-  console.log("cities", compositeCities)
-});
 
 // fetch city weather
 const fetchCityWeatherData = async (lat, lon) => {
@@ -22,10 +9,10 @@ const fetchCityWeatherData = async (lat, lon) => {
 }
 
 // fetch city businesses
-const fetchCityBusinesses = async (city) => {
+const fetchCityBusinesses = async (city, limit = 10) => {
   const headers = {
     method: 'get',
-    url: `https://api.yelp.com/v3/businesses/search?latitude=${city.lat}&longitude=${city.lon}&sort_by=best_match&limit=10`,
+    url: `https://api.yelp.com/v3/businesses/search?latitude=${city.lat}&longitude=${city.lon}&sort_by=best_match&limit=${limit}`,
     headers: {
       "Authorization": `Bearer ${process.env.YELP_FUSION_API}`,
       "accept": 'application/json'
@@ -38,6 +25,8 @@ const fetchCityBusinesses = async (city) => {
   return res.data;
 }
 
+// compose city weather + business
+// based on geo coordinates
 const getCompositeCities = (cities, citiesWithBusinesses) =>
   cities.map(city => {
     const cLon = city.lon.toFixed(3);
@@ -49,12 +38,18 @@ const getCompositeCities = (cities, citiesWithBusinesses) =>
       const isMatch = bLon === cLon && bLat === cLat
       
       return isMatch;
-    })
+    }) 
 
-    return {
-      ...city,
-      businesses: cityBusinessesData
+    const compositeData = {
+      weather: city,
+      yelp: cityBusinessesData
     }
-  })
 
-module.exports = router;
+    return compositeData
+  });
+
+  module.exports = {
+    fetchCityBusinesses,
+    fetchCityWeatherData,
+    getCompositeCities
+  }
