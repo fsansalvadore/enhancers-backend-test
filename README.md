@@ -1,4 +1,4 @@
-# enhancers-backend-test
+# Enhancers backend test
 
 API that grabs and combines location data from:
 - Open Weather Map (https://openweathermap.org/api) for weather
