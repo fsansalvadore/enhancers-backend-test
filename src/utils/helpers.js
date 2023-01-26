@@ -8,7 +8,7 @@ const fetchCityWeatherData = async (lat, lon) => {
     )
     .catch((err) => console.error(err));
 
-  return res.data;
+  return res?.data;
 };
 
 // fetch city businesses
@@ -24,7 +24,7 @@ const fetchCityBusinesses = async (city, limit = 10) => {
 
   const res = await axios(headers).catch((err) => console.error(err));
 
-  return res.data;
+  return res?.data;
 };
 
 // compose city weather + business
@@ -34,7 +34,9 @@ const getCompositeCities = (cities, citiesWithBusinesses) =>
     const cLon = city.lon.toFixed(3);
     const cLat = city.lat.toFixed(3);
 
-    const cityBusinessesData = citiesWithBusinesses.find((bCity) => {
+    const cityBusinessesData = citiesWithBusinesses?.find((bCity) => {
+      if (!bCity) return false;
+
       const bLon = bCity.region.center.longitude.toFixed(3);
       const bLat = bCity.region.center.latitude.toFixed(3);
       const isMatch = bLon === cLon && bLat === cLat;
@@ -43,8 +45,9 @@ const getCompositeCities = (cities, citiesWithBusinesses) =>
     });
 
     const compositeData = {
+      location: cityBusinessesData?.businesses[0]?.location?.city,
       weather: city,
-      yelp: cityBusinessesData,
+      yelp: cityBusinessesData ?? null,
     };
 
     return compositeData;
