@@ -1,13 +1,16 @@
 # enhancers-backend-test
 
-API with location weather and businesses.
+API that grabs and combines location data from:
+- Open Weather Map (https://openweathermap.org/api) for weather
+- API Yelp Fusion (https://www.yelp.com/developers/documentation/v3/business_search) for businesses
 
 ### Endpoint:
-[https://enhancers-backend-test.herokuapp.com/cities](https://enhancers-backend-test.herokuapp.com/cities)
+
+> `GET` [https://enhancers-backend-test.herokuapp.com/cities](https://enhancers-backend-test.herokuapp.com/cities)
 
 ### Parameters
 
-• `bLimit` is optional and defaults to `10`.
+• `bLimit` (businesses limit) is optional and defaults to `10`.
 
 ### Response
 
