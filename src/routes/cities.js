@@ -11,9 +11,9 @@ const {
 router.get('/', async (req, res) => {
   try {
     const isNumber = new RegExp('^[0-9]$');
-    const limitDefault = 10;
-    const limit = req.query.limit;
-    const isLimitValid = isNumber.test(limit);
+    const businessesLimitDefault = 10;
+    const businessesLimit = req.query.bLimit;
+    const isBusinessesLimitValid = isNumber.test(businessesLimit);
 
     // Retrieve weather data for all cities from openweather api
     const citiesRes = await Promise.all(
@@ -22,7 +22,10 @@ router.get('/', async (req, res) => {
     // Retrieve businesses data for all cities from yelp fusion api
     const citiesWithBusinesses = await Promise.all(
       citiesRes.map((city) =>
-        fetchCityBusinesses(city, isLimitValid ? limit : limitDefault)
+        fetchCityBusinesses(
+          city,
+          isBusinessesLimitValid ? businessesLimit : businessesLimitDefault
+        )
       )
     );
     // Combine data in one object by mathing coordinates
