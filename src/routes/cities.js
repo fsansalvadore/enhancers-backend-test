@@ -8,7 +8,7 @@ const {
 } = require('../utils/helpers');
 const { CITIES, DEFAULT_BUSINESSES_LIMIT } = require('../utils/constants');
 
-// GET /cities?limit=3
+// GET /cities?bLimit=3
 router.get('/', async (req, res) => {
   try {
     const businessesLimit = req.query.bLimit;
