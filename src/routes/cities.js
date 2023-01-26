@@ -1,13 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const cities = require('../utils/cities');
 const {
   fetchCityBusinesses,
   fetchCityWeatherData,
   getCompositeCities,
   isNumber,
 } = require('../utils/helpers');
-const { DEFAULT_BUSINESSES_LIMIT } = require('../utils/constants');
+const { CITIES, DEFAULT_BUSINESSES_LIMIT } = require('../utils/constants');
 
 // GET /cities?limit=3
 router.get('/', async (req, res) => {
@@ -17,7 +16,7 @@ router.get('/', async (req, res) => {
 
     // Retrieve weather data for all cities from openweather api
     const citiesRes = await Promise.all(
-      cities.map((city) => fetchCityWeatherData(city.lat, city.lon))
+      CITIES.map((city) => fetchCityWeatherData(city.lat, city.lon))
     );
     // Retrieve businesses data for all cities from yelp fusion api
     const citiesWithBusinesses = await Promise.all(
