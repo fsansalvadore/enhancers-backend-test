@@ -1,0 +1,5 @@
+const DEFAULT_BUSINESSES_LIMIT = 10;
+
+module.exports = {
+  DEFAULT_BUSINESSES_LIMIT,
+};

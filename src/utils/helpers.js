@@ -53,8 +53,11 @@ const getCompositeCities = (cities, citiesWithBusinesses) =>
     return compositeData;
   });
 
+const isNumber = new RegExp('^[0-9]$');
+
 module.exports = {
   fetchCityBusinesses,
   fetchCityWeatherData,
   getCompositeCities,
+  isNumber,
 };

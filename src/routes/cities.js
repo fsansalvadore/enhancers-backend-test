@@ -5,13 +5,13 @@ const {
   fetchCityBusinesses,
   fetchCityWeatherData,
   getCompositeCities,
+  isNumber,
 } = require('../utils/helpers');
+const { DEFAULT_BUSINESSES_LIMIT } = require('../utils/constants');
 
 // GET /cities?limit=3
 router.get('/', async (req, res) => {
   try {
-    const isNumber = new RegExp('^[0-9]$');
-    const businessesLimitDefault = 10;
     const businessesLimit = req.query.bLimit;
     const isBusinessesLimitValid = isNumber.test(businessesLimit);
 
@@ -24,7 +24,7 @@ router.get('/', async (req, res) => {
       citiesRes.map((city) =>
         fetchCityBusinesses(
           city,
-          isBusinessesLimitValid ? businessesLimit : businessesLimitDefault
+          isBusinessesLimitValid ? businessesLimit : DEFAULT_BUSINESSES_LIMIT
         )
       )
     );
